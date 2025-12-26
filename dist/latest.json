@@ -3,7 +3,7 @@
   "meta_type": "app",
   "repository": "https://github.com/RadNotRed/better-Ultimate-Clock",
   "icon": "",
-  "size": 380040,
+  "size": 380166,
   "appManifest": {
     "id": "betterultimateclock",
     "requires": [],
@@ -32,9 +32,9 @@
     }
   },
   "updateUrl": "https://github.com/RadNotRed/better-Ultimate-Clock/releases/latest/download/betterultimateclock-v0.1.0.zip",
-  "hash": "1aab831195a4ed15e9e58429cbe3d389d3675cff5cc75fd7b9fd13a743632885cb119743a3b2bca62d9761149865bfbe7eeeab17ce823eace017a13884d38f24",
+  "hash": "a1429351ec4a720afb349bcbecc3033b01db0c27ad1a83ad597e119b0780e682a3a2583978b99ab68134f711b35dddc4fb25649068b5199109b2946b0d07d634",
   "hashAlgorithm": "sha512",
-  "updatedAt": 1766777348038,
-  "createdAt": 1766777348038,
+  "updatedAt": 1766777733751,
+  "createdAt": 1766777733751,
   "downloads": 0
 }
