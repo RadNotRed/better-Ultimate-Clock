@@ -2131,38 +2131,6 @@ var initializeSettings = async () => {
         }
       ]
     },
-    ["clock_size" /* CLOCK_SIZE */]: {
-      id: "clock_size" /* CLOCK_SIZE */,
-      type: SETTING_TYPES2.NUMBER,
-      label: "Clock Size (px)",
-      value: 180,
-      min: 5,
-      max: 500,
-      step: 1,
-      description: "Adjust the size of the clock display font in pixels"
-    },
-    ["clock_transparency" /* CLOCK_OPACITY */]: {
-      id: "clock_transparency" /* CLOCK_OPACITY */,
-      type: SETTING_TYPES2.RANGE,
-      label: "Clock Opacity",
-      value: 1,
-      min: 0,
-      max: 1,
-      step: 0.01
-    },
-    ["clock_divider" /* CLOCK_DIVIDER */]: {
-      id: "clock_divider" /* CLOCK_DIVIDER */,
-      type: SETTING_TYPES2.STRING,
-      label: "Clock Divider",
-      value: ":",
-      description: "Character used to separate time components (e.g., hours, minutes, seconds)."
-    },
-    ["military_time" /* MILITARY_TIME */]: {
-      id: "military_time" /* MILITARY_TIME */,
-      type: SETTING_TYPES2.BOOLEAN,
-      label: "Military Time",
-      value: false
-    },
     ["font" /* FONT */]: {
       id: "font" /* FONT */,
       type: SETTING_TYPES2.FILE,
@@ -2183,13 +2151,25 @@ var initializeSettings = async () => {
       value: "",
       description: "Select a font for the clock display. If you upload a new font, select it here.",
       options: [
-        {
-          label: "GeistVF (Default)",
-          value: "GeistVF.ttf"
-        },
+        { label: "GeistVF (Default)", value: "GeistVF.ttf" },
         { label: "GeistMonoVF", value: "GeistMonoVF.ttf" },
         { label: "HelveticaNeue", value: "HelveticaNeue.ttf" },
         { label: "THEBOLDFONT", value: "THEBOLDFONT.ttf" }
+      ]
+    },
+    ["font_weight" /* FONT_WEIGHT */]: {
+      id: "font_weight" /* FONT_WEIGHT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Font Weight",
+      value: "normal",
+      description: "Adjust the weight/thickness of the clock font",
+      options: [
+        { label: "Light", value: "300" },
+        { label: "Regular", value: "normal" },
+        { label: "Medium", value: "500" },
+        { label: "Semi-Bold", value: "600" },
+        { label: "Bold", value: "bold" },
+        { label: "Extra Bold", value: "800" }
       ]
     },
     ["background" /* BACKGROUND */]: {
@@ -2253,10 +2233,128 @@ var initializeSettings = async () => {
     ["background_dim" /* BACKGROUND_BRIGHTNESS */]: {
       id: "background_dim" /* BACKGROUND_BRIGHTNESS */,
       version: "0.11.3",
-      // set version so it updates if someone improperly downloaded this 
       type: SETTING_TYPES2.RANGE,
       label: "Background Brightness",
       description: "Adjust the brightness of the background.",
+      value: 1,
+      min: 0,
+      max: 1,
+      step: 0.01
+    },
+    ["time_layout" /* TIME_LAYOUT */]: {
+      id: "time_layout" /* TIME_LAYOUT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Time Layout",
+      value: "inline",
+      description: "Display time inline (12:05) or stacked vertically",
+      options: [
+        { label: "Inline", value: "inline" },
+        { label: "Stacked", value: "stacked" }
+      ]
+    },
+    ["time_alignment" /* TIME_ALIGNMENT */]: {
+      id: "time_alignment" /* TIME_ALIGNMENT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Time Alignment",
+      value: "center",
+      description: "Alignment for stacked time layout",
+      options: [
+        { label: "Left", value: "left" },
+        { label: "Center", value: "center" },
+        { label: "Right", value: "right" }
+      ],
+      dependsOn: [
+        {
+          settingId: "time_layout" /* TIME_LAYOUT */,
+          isValue: "stacked"
+        }
+      ]
+    },
+    ["military_time" /* MILITARY_TIME */]: {
+      id: "military_time" /* MILITARY_TIME */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "24-Hour Format",
+      value: false,
+      description: "Use 24-hour (military) time format"
+    },
+    ["show_ampm" /* SHOW_AMPM */]: {
+      id: "show_ampm" /* SHOW_AMPM */,
+      type: SETTING_TYPES2.SELECT,
+      label: "AM/PM Display",
+      value: "normal",
+      description: "How to display AM/PM indicator",
+      options: [
+        { label: "Show", value: "normal" },
+        { label: "Small (Subtext)", value: "small" },
+        { label: "Hide", value: "off" }
+      ],
+      dependsOn: [
+        {
+          settingId: "military_time" /* MILITARY_TIME */,
+          isNot: true
+        }
+      ]
+    },
+    ["digit_spacing" /* DIGIT_SPACING */]: {
+      id: "digit_spacing" /* DIGIT_SPACING */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Digit Spacing",
+      value: 0,
+      min: -10,
+      max: 50,
+      step: 1,
+      description: "Adjust spacing between digits (letter-spacing)"
+    },
+    ["line_spacing" /* LINE_SPACING */]: {
+      id: "line_spacing" /* LINE_SPACING */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Line Spacing",
+      value: 0,
+      min: -50,
+      max: 100,
+      step: 1,
+      description: "Adjust spacing between stacked lines",
+      dependsOn: [
+        {
+          settingId: "time_layout" /* TIME_LAYOUT */,
+          isValue: "stacked"
+        }
+      ]
+    },
+    ["clock_divider" /* CLOCK_DIVIDER */]: {
+      id: "clock_divider" /* CLOCK_DIVIDER */,
+      type: SETTING_TYPES2.STRING,
+      label: "Clock Divider",
+      value: ":",
+      description: "Character used to separate hours and minutes",
+      dependsOn: [
+        {
+          settingId: "time_layout" /* TIME_LAYOUT */,
+          isValue: "inline"
+        }
+      ]
+    },
+    ["leading_zero_hours" /* LEADING_ZERO_HOURS */]: {
+      id: "leading_zero_hours" /* LEADING_ZERO_HOURS */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "Leading Zero for Hours",
+      value: false,
+      description: "Display hours with leading zero (01, 02... 09). Only applies to 12-hour mode."
+    },
+    ["clock_size" /* CLOCK_SIZE */]: {
+      id: "clock_size" /* CLOCK_SIZE */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Clock Size (px)",
+      value: 180,
+      min: 5,
+      max: 500,
+      step: 1,
+      description: "Adjust the size of the clock display font in pixels"
+    },
+    ["clock_transparency" /* CLOCK_OPACITY */]: {
+      id: "clock_transparency" /* CLOCK_OPACITY */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Clock Opacity",
       value: 1,
       min: 0,
       max: 1,
@@ -2283,134 +2381,20 @@ var initializeSettings = async () => {
     ["clock_pos_x" /* CLOCK_POS_X */]: {
       id: "clock_pos_x" /* CLOCK_POS_X */,
       type: SETTING_TYPES2.NUMBER,
-      label: "Clock X Position",
+      label: "Clock X Offset",
       value: 0,
-      min: -100,
-      max: 100,
+      min: -500,
+      max: 500,
       step: 1
     },
     ["clock_pos_y" /* CLOCK_POS_Y */]: {
       id: "clock_pos_y" /* CLOCK_POS_Y */,
       type: SETTING_TYPES2.NUMBER,
-      label: "Clock Y Position",
+      label: "Clock Y Offset",
       value: 0,
-      min: -100,
-      max: 100,
+      min: -500,
+      max: 500,
       step: 1
-    },
-    ["widgets" /* WIDGETS */]: {
-      id: "widgets" /* WIDGETS */,
-      type: SETTING_TYPES2.MULTISELECT,
-      label: "Enabled Widgets",
-      value: ["date" /* DATE */],
-      options: [
-        { label: "Stopwatch", value: "stopwatch" /* STOPWATCH */ },
-        { label: "Countdown", value: "countdown" /* COUNTDOWN */ },
-        { label: "Date", value: "date" /* DATE */ }
-      ]
-    },
-    ["date_pos_x" /* DATE_POS_X */]: {
-      id: "date_pos_x" /* DATE_POS_X */,
-      type: SETTING_TYPES2.NUMBER,
-      label: "Date X Offset",
-      value: 0,
-      min: -500,
-      max: 500,
-      step: 1,
-      dependsOn: [
-        {
-          settingId: "widgets" /* WIDGETS */,
-          isValue: "date"
-        }
-      ]
-    },
-    ["date_pos_y" /* DATE_POS_Y */]: {
-      id: "date_pos_y" /* DATE_POS_Y */,
-      type: SETTING_TYPES2.NUMBER,
-      label: "Date Y Offset",
-      value: 0,
-      min: -500,
-      max: 500,
-      step: 1,
-      dependsOn: [
-        {
-          settingId: "widgets" /* WIDGETS */,
-          isValue: "date"
-        }
-      ]
-    },
-    ["date_format" /* DATE_FORMAT */]: {
-      id: "date_format" /* DATE_FORMAT */,
-      type: SETTING_TYPES2.SELECT,
-      label: "Date Format",
-      value: "MM/DD/YYYY",
-      options: [
-        { label: "MM/DD/YYYY", value: "MM/DD/YYYY" },
-        { label: "DD/MM/YYYY", value: "DD/MM/YYYY" },
-        { label: "YYYY-MM-DD", value: "YYYY-MM-DD" },
-        { label: "MMMM DD YYYY", value: "MMMM DD YYYY" },
-        { label: "MMM DD YYYY", value: "MMM DD YYYY" }
-      ],
-      dependsOn: [
-        {
-          settingId: "widgets" /* WIDGETS */,
-          isValue: "date"
-        }
-      ]
-    },
-    ["stopwatch_default_time" /* STOPWATCH_DEFAULT_TIME */]: {
-      id: "stopwatch_default_time" /* STOPWATCH_DEFAULT_TIME */,
-      type: SETTING_TYPES2.NUMBER,
-      label: "Stopwatch Default Time",
-      value: 0,
-      min: 0,
-      max: 86400,
-      step: 1,
-      dependsOn: [
-        {
-          settingId: "widgets" /* WIDGETS */,
-          isValue: "stopwatch"
-        }
-      ]
-    },
-    ["countdown_default_time" /* COUNTDOWN_DEFAULT_TIME */]: {
-      id: "countdown_default_time" /* COUNTDOWN_DEFAULT_TIME */,
-      type: SETTING_TYPES2.NUMBER,
-      label: "Countdown Default Time",
-      value: 60,
-      min: 1,
-      max: 86400,
-      step: 1,
-      dependsOn: [
-        {
-          settingId: "widgets" /* WIDGETS */,
-          isValue: "countdown"
-        }
-      ]
-    },
-    ["clock_ordering" /* CLOCK_ORDERING */]: {
-      id: "clock_ordering" /* CLOCK_ORDERING */,
-      type: SETTING_TYPES2.RANKED,
-      label: "Clock Ordering",
-      value: ["clock", "date" /* DATE */, "stopwatch" /* STOPWATCH */, "countdown" /* COUNTDOWN */],
-      options: [
-        { label: "Clock", value: "clock" },
-        { label: "Date", value: "date" /* DATE */ },
-        { label: "Stopwatch", value: "stopwatch" /* STOPWATCH */ },
-        { label: "Countdown", value: "countdown" /* COUNTDOWN */ }
-      ]
-    },
-    ["clock_justify_content" /* CLOCK_JUSTIFY_CONTENT */]: {
-      id: "clock_justify_content" /* CLOCK_JUSTIFY_CONTENT */,
-      type: SETTING_TYPES2.SELECT,
-      label: "Clock Justify Content",
-      value: "center",
-      options: [
-        { label: "Start", value: "flex-start" },
-        { label: "Center", value: "center" },
-        { label: "End", value: "flex-end" },
-        { label: "Space Between", value: "space-between" }
-      ]
     },
     ["clock_shadow" /* CLOCK_SHADOW */]: {
       id: "clock_shadow" /* CLOCK_SHADOW */,
@@ -2459,6 +2443,414 @@ var initializeSettings = async () => {
         {
           settingId: "clock_shadow" /* CLOCK_SHADOW */
         }
+      ]
+    },
+    ["show_date" /* SHOW_DATE */]: {
+      id: "show_date" /* SHOW_DATE */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "Show Date",
+      value: true,
+      description: "Toggle date display on or off"
+    },
+    ["show_day_name" /* SHOW_DAY_NAME */]: {
+      id: "show_day_name" /* SHOW_DAY_NAME */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "Show Day Name",
+      value: false,
+      description: "Display the day of the week (e.g., Thursday)",
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_format" /* DATE_FORMAT */]: {
+      id: "date_format" /* DATE_FORMAT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Date Format",
+      value: "MMMM DD YYYY",
+      description: "Choose the date format",
+      options: [
+        { label: "December 26 2025", value: "MMMM DD YYYY" },
+        { label: "December 26th 2025", value: "MMMM DDth YYYY" },
+        { label: "26 December 2025", value: "DD MMMM YYYY" },
+        { label: "2025.12.26", value: "YYYY.MM.DD" },
+        { label: "MM/DD/YYYY", value: "MM/DD/YYYY" },
+        { label: "DD/MM/YYYY", value: "DD/MM/YYYY" },
+        { label: "YYYY-MM-DD", value: "YYYY-MM-DD" },
+        { label: "MMM DD YYYY", value: "MMM DD YYYY" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_separator" /* DATE_SEPARATOR */]: {
+      id: "date_separator" /* DATE_SEPARATOR */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Date Separator",
+      value: "-",
+      description: "Character used between date components (for numeric formats)",
+      options: [
+        { label: "Dash (-)", value: "-" },
+        { label: "Dash Spaced ( - )", value: " - " },
+        { label: "Dot (.)", value: "." },
+        { label: "Dot Spaced (. )", value: ". " },
+        { label: "Slash (/)", value: "/" },
+        { label: "Slash Spaced ( / )", value: " / " },
+        { label: "Space", value: " " },
+        { label: "None", value: "" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["month_format" /* MONTH_FORMAT */]: {
+      id: "month_format" /* MONTH_FORMAT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Month Format",
+      value: "full",
+      description: "How to display the month",
+      options: [
+        { label: "Numeric (12)", value: "numeric" },
+        { label: "Abbreviated (Dec)", value: "abbreviated" },
+        { label: "Full Name (December)", value: "full" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_layout" /* DATE_LAYOUT */]: {
+      id: "date_layout" /* DATE_LAYOUT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Date Layout",
+      value: "inline",
+      description: "How the date is positioned relative to time",
+      options: [
+        { label: "Inline", value: "inline" },
+        { label: "Stacked Under Time", value: "stacked" },
+        { label: "Compact (Single Line)", value: "compact" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_pos_x" /* DATE_POS_X */]: {
+      id: "date_pos_x" /* DATE_POS_X */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Date X Offset",
+      value: 0,
+      min: -500,
+      max: 500,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_pos_y" /* DATE_POS_Y */]: {
+      id: "date_pos_y" /* DATE_POS_Y */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Date Y Offset",
+      value: 0,
+      min: -500,
+      max: 500,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_size" /* DATE_SIZE */]: {
+      id: "date_size" /* DATE_SIZE */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Date Size Scale",
+      value: 0.3,
+      min: 0.1,
+      max: 1,
+      step: 0.05,
+      description: "Date text size relative to clock size",
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["day_size" /* DAY_SIZE */]: {
+      id: "day_size" /* DAY_SIZE */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Day Name Size Scale",
+      value: 0.25,
+      min: 0.1,
+      max: 1,
+      step: 0.05,
+      description: "Day name size relative to clock size (e.g., FRIDAY)",
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        },
+        {
+          settingId: "show_day_name" /* SHOW_DAY_NAME */
+        }
+      ]
+    },
+    ["day_date_gap" /* DAY_DATE_GAP */]: {
+      id: "day_date_gap" /* DAY_DATE_GAP */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Day/Date Gap",
+      value: 8,
+      min: -500,
+      max: 500,
+      step: 1,
+      description: "Spacing between day name and date (in pixels). Negative values overlap.",
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        },
+        {
+          settingId: "show_day_name" /* SHOW_DAY_NAME */
+        }
+      ]
+    },
+    ["date_opacity" /* DATE_OPACITY */]: {
+      id: "date_opacity" /* DATE_OPACITY */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Date Opacity",
+      value: 1,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["date_alignment" /* DATE_ALIGNMENT */]: {
+      id: "date_alignment" /* DATE_ALIGNMENT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Date Alignment",
+      value: "center",
+      options: [
+        { label: "Left", value: "left" },
+        { label: "Center", value: "center" },
+        { label: "Right", value: "right" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_date" /* SHOW_DATE */
+        }
+      ]
+    },
+    ["show_constellation" /* SHOW_CONSTELLATION */]: {
+      id: "show_constellation" /* SHOW_CONSTELLATION */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "Show Constellation",
+      value: false,
+      description: "Display zodiac constellation based on current date"
+    },
+    ["constellation_display_mode" /* CONSTELLATION_DISPLAY_MODE */]: {
+      id: "constellation_display_mode" /* CONSTELLATION_DISPLAY_MODE */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Constellation Display",
+      value: "graphic_name",
+      description: "How to display the constellation",
+      options: [
+        { label: "Decorative Only", value: "decorative" },
+        { label: "Name Only", value: "name" },
+        { label: "Graphic + Name", value: "graphic_name" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_position" /* CONSTELLATION_POSITION */]: {
+      id: "constellation_position" /* CONSTELLATION_POSITION */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Constellation Position",
+      value: "right",
+      options: [
+        { label: "Left", value: "left" },
+        { label: "Right", value: "right" },
+        { label: "Top", value: "top" },
+        { label: "Bottom", value: "bottom" }
+      ],
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_size" /* CONSTELLATION_SIZE */]: {
+      id: "constellation_size" /* CONSTELLATION_SIZE */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Constellation Size",
+      value: 1,
+      min: 1,
+      max: 5,
+      step: 0.05,
+      description: "Scale of the constellation graphic",
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_opacity" /* CONSTELLATION_OPACITY */]: {
+      id: "constellation_opacity" /* CONSTELLATION_OPACITY */,
+      type: SETTING_TYPES2.RANGE,
+      label: "Constellation Opacity",
+      value: 0.8,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_animation" /* CONSTELLATION_ANIMATION */]: {
+      id: "constellation_animation" /* CONSTELLATION_ANIMATION */,
+      type: SETTING_TYPES2.BOOLEAN,
+      label: "Subtle Animation",
+      value: false,
+      description: "Enable subtle animation on constellation",
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_pos_x" /* CONSTELLATION_POS_X */]: {
+      id: "constellation_pos_x" /* CONSTELLATION_POS_X */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Constellation X Offset",
+      value: 0,
+      min: -500,
+      max: 500,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["constellation_pos_y" /* CONSTELLATION_POS_Y */]: {
+      id: "constellation_pos_y" /* CONSTELLATION_POS_Y */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Constellation Y Offset",
+      value: 0,
+      min: -500,
+      max: 500,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "show_constellation" /* SHOW_CONSTELLATION */
+        }
+      ]
+    },
+    ["layer_order" /* LAYER_ORDER */]: {
+      id: "layer_order" /* LAYER_ORDER */,
+      type: SETTING_TYPES2.RANKED,
+      label: "Layer Order",
+      value: ["time", "date", "constellation"],
+      description: "Drag to reorder the display layers",
+      options: [
+        { label: "Time", value: "time" },
+        { label: "Date", value: "date" },
+        { label: "Constellation", value: "constellation" }
+      ]
+    },
+    ["widgets" /* WIDGETS */]: {
+      id: "widgets" /* WIDGETS */,
+      type: SETTING_TYPES2.MULTISELECT,
+      label: "Additional Widgets",
+      value: [],
+      options: [
+        { label: "Stopwatch", value: "stopwatch" /* STOPWATCH */ },
+        { label: "Countdown", value: "countdown" /* COUNTDOWN */ }
+      ]
+    },
+    ["clock_ordering" /* CLOCK_ORDERING */]: {
+      id: "clock_ordering" /* CLOCK_ORDERING */,
+      type: SETTING_TYPES2.RANKED,
+      label: "Widget Ordering",
+      value: ["clock", "date" /* DATE */, "constellation" /* CONSTELLATION */, "stopwatch" /* STOPWATCH */, "countdown" /* COUNTDOWN */],
+      options: [
+        { label: "Clock", value: "clock" },
+        { label: "Date", value: "date" /* DATE */ },
+        { label: "Constellation", value: "constellation" /* CONSTELLATION */ },
+        { label: "Stopwatch", value: "stopwatch" /* STOPWATCH */ },
+        { label: "Countdown", value: "countdown" /* COUNTDOWN */ }
+      ]
+    },
+    ["clock_justify_content" /* CLOCK_JUSTIFY_CONTENT */]: {
+      id: "clock_justify_content" /* CLOCK_JUSTIFY_CONTENT */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Content Alignment",
+      value: "center",
+      options: [
+        { label: "Start", value: "flex-start" },
+        { label: "Center", value: "center" },
+        { label: "End", value: "flex-end" },
+        { label: "Space Between", value: "space-between" }
+      ]
+    },
+    ["stopwatch_default_time" /* STOPWATCH_DEFAULT_TIME */]: {
+      id: "stopwatch_default_time" /* STOPWATCH_DEFAULT_TIME */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Stopwatch Default Time",
+      value: 0,
+      min: 0,
+      max: 86400,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "widgets" /* WIDGETS */,
+          isValue: "stopwatch"
+        }
+      ]
+    },
+    ["countdown_default_time" /* COUNTDOWN_DEFAULT_TIME */]: {
+      id: "countdown_default_time" /* COUNTDOWN_DEFAULT_TIME */,
+      type: SETTING_TYPES2.NUMBER,
+      label: "Countdown Default Time",
+      value: 60,
+      min: 1,
+      max: 86400,
+      step: 1,
+      dependsOn: [
+        {
+          settingId: "widgets" /* WIDGETS */,
+          isValue: "countdown"
+        }
+      ]
+    },
+    ["active_preset" /* ACTIVE_PRESET */]: {
+      id: "active_preset" /* ACTIVE_PRESET */,
+      type: SETTING_TYPES2.SELECT,
+      label: "Quick Preset",
+      value: "custom",
+      description: "Apply a preset layout configuration",
+      options: [
+        { label: "Custom", value: "custom" },
+        { label: "Minimal Clock", value: "minimal" },
+        { label: "Time + Full Date", value: "time_date" },
+        { label: "Time + Date + Constellation", value: "full" },
+        { label: "Night Mode", value: "night" },
+        { label: "Stacked Vertical", value: "stacked" }
       ]
     }
   };

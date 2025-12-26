@@ -1,10 +1,10 @@
 {
-  "id": "ultimateclock",
+  "id": "betterultimateclock",
   "requires": [],
-  "label": "Ultimate Clock",
-  "version": "0.11.3",
-  "description": "The ultimate and best clock app you have ever seen",
-  "author": "Riprod",
+  "label": "Better Ultimate Clock",
+  "version": "0.1.0",
+  "description": "Slightly better ultimate clock by Riprod",
+  "author": "RadNotRed, Riprod",
   "platforms": [
     "windows",
     "linux",
@@ -17,7 +17,7 @@
     "x64"
   ],
   "homepage": "https://deskthing.app",
-  "repository": "https://github.com/itsriprod/deskthing-apps",
+  "repository": "https://github.com/RadNotRed/better-Ultimate-Clock",
   "template": "full",
   "tags": [],
   "requiredVersions": {

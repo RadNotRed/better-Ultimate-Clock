@@ -221,7 +221,7 @@ export const initializeSettings = async (): Promise<void> => {
     },
     [ClockSettingIDs.DIGIT_SPACING]: {
       id: ClockSettingIDs.DIGIT_SPACING,
-      type: SETTING_TYPES.RANGE,
+      type: SETTING_TYPES.NUMBER,
       label: 'Digit Spacing',
       value: 0,
       min: -10,
@@ -231,7 +231,7 @@ export const initializeSettings = async (): Promise<void> => {
     },
     [ClockSettingIDs.LINE_SPACING]: {
       id: ClockSettingIDs.LINE_SPACING,
-      type: SETTING_TYPES.RANGE,
+      type: SETTING_TYPES.NUMBER,
       label: 'Line Spacing',
       value: 0,
       min: -50,
@@ -532,7 +532,7 @@ export const initializeSettings = async (): Promise<void> => {
     },
     [ClockSettingIDs.DAY_DATE_GAP]: {
       id: ClockSettingIDs.DAY_DATE_GAP,
-      type: SETTING_TYPES.RANGE,
+      type: SETTING_TYPES.NUMBER,
       label: 'Day/Date Gap',
       value: 8,
       min: -500,
@@ -624,9 +624,9 @@ export const initializeSettings = async (): Promise<void> => {
       id: ClockSettingIDs.CONSTELLATION_SIZE,
       type: SETTING_TYPES.RANGE,
       label: 'Constellation Size',
-      value: 0.5,
-      min: 0.1,
-      max: 2,
+      value: 1,
+      min: 1,
+      max: 5,
       step: 0.05,
       description: 'Scale of the constellation graphic',
       dependsOn: [

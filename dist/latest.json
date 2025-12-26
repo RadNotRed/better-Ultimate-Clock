@@ -1,16 +1,16 @@
 {
   "meta_version": "0.11.8",
   "meta_type": "app",
-  "repository": "https://github.com/itsriprod/deskthing-apps",
-  "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIg0KICB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+DQogIDxwYXRoIHN0cm9rZT0ibm9uZSINCiAgICBkPSJNIDg5LjggNDIuOCBjIC03LjggLTEuNCAtNy44IC0xLjQgLTcuOCAtMS40IGMgLTAuNyAtMy4xIC0xLjkgLTUuOSAtMy42IC04LjcgYyA0LjcgLTYuNyA0LjcgLTYuNyA0LjcgLTYuNyBjIDAuOSAtMS4yIDAuNyAtMi45IC0wLjIgLTMuOSBjIC0yLjcgLTIuNyAtMi43IC0yLjcgLTIuNyAtMi43IGMgLTIuOCAtMi45IC0yLjggLTIuOSAtMi44IC0yLjkgYyAtMSAtMSAtMi44IC0xLjEgLTMuOCAtMC4yIEMgNjYuOCAyMS4yIDY2LjggMjEuMiA2Ni44IDIxLjIgYyAtMi43IC0xLjUgLTUuNSAtMi43IC04LjUgLTMuNyBjIC0xLjQgLTggLTEuNCAtOCAtMS40IC04IGMgLTAuMiAtMS41IC0xLjUgLTIuNSAtMyAtMi41IGMgLTQgMCAtNCAwIC00IDAgYyAtNCAwIC00IDAgLTQgMCBjIC0xLjUgMCAtMi44IDEuMSAtMyAyLjUgYyAtMS40IDggLTEuNCA4IC0xLjQgOCBjIC0zIDAuNyAtNS45IDIgLTguNiAzLjggYyAtNi41IC00LjYgLTYuNSAtNC42IC02LjUgLTQuNiBjIC0xLjIgLTAuOCAtMi44IC0wLjcgLTMuOCAwLjQgYyAtMi43IDIuNyAtMi43IDIuNyAtMi43IDIuNyBjIC0yLjggMi45IC0yLjggMi45IC0yLjggMi45IGMgLTAuOSAxIC0xLjIgMi45IC0wLjIgMy45IGMgNC43IDYuOCA0LjcgNi44IDQuNyA2LjggYyAtMS41IDIuNyAtMi44IDUuNyAtMy41IDguNyBjIC03LjggMS4yIC03LjggMS4yIC03LjggMS4yIGMgLTEuNSAwLjQgLTIuNCAxLjUgLTIuNCAzLjEgYyAwIDQuMiAwIDQuMiAwIDQuMiBjIDAgNCAwIDQgMCA0IGMgMCAxLjUgMSAyLjcgMi40IDMuMSBjIDggMS4zIDggMS4zIDggMS4zIGMgMC44IDMgMS45IDUuOSAzLjUgOC42IGMgLTQuMyA2LjUgLTQuMyA2LjUgLTQuMyA2LjUgYyAtMC44IDEuMiAtMC43IDIuOSAwLjIgMy45IGMgMi44IDIuNyAyLjggMi43IDIuOCAyLjcgYyAyLjcgMi45IDIuNyAyLjkgMi43IDIuOSBjIDAuOSAxIDIuOCAxLjMgMy44IDAuMiBjIDYuNiAtNC44IDYuNiAtNC44IDYuNiAtNC44IGMgMi43IDEuNyA1LjYgMi45IDguNSAzLjYgYyAxLjQgOCAxLjQgOCAxLjQgOCBjIDAuMiAxLjUgMS41IDIuNSAzIDIuNSBjIDQgMCA0IDAgNCAwIGMgNCAwIDQgMCA0IDAgYyAxLjUgMCAyLjggLTEuMSAzIC0yLjUgYyAxLjQgLTguMiAxLjQgLTguMiAxLjQgLTguMiBjIDIuOSAtMC42IDUuNiAtMS45IDguMyAtMy40IGMgNi40IDQuOCA2LjQgNC44IDYuNCA0LjggYyAxLjMgMC44IDIuOSAwLjcgMy44IC0wLjIgYyAyLjggLTIuOSAyLjggLTIuOSAyLjggLTIuOSBjIDIuNyAtMi43IDIuNyAtMi43IDIuNyAtMi43IGMgMSAtMS4xIDEuMyAtMi45IDAuMyAtMy45IGMgLTQuNyAtNi43IC00LjcgLTYuNyAtNC43IC02LjcgYyAxLjYgLTIuOSAyLjcgLTUuNiAzLjUgLTguNyBjIDcuNyAtMS40IDcuNyAtMS40IDcuNyAtMS40IGMgMS41IC0wLjIgMi42IC0xLjUgMi42IC0zLjEgYyAwIC00IDAgLTQgMCAtNCBjIDAgLTQgMCAtNCAwIC00IEMgOTIuMyA0NC40IDkxLjIgNDMgODkuOCA0Mi44IHogTSA1MCA3NC44IEMgMzYuMyA3NC44IDI1LjIgNjMuNyAyNS4yIDUwIGMgMCAtMTMuNyAxMS4xIC0yNC44IDI0LjggLTI0LjggYyAxMy43IDAgMjQuOCAxMS4xIDI0LjggMjQuOCBDIDc0LjggNjMuNyA2My43IDc0LjggNTAgNzQuOCB6IE0gNzEuOCA0OC41IGMgLTAuMyAtNC45IC0yLjMgLTkuMyAtNS4zIC0xMi44IGwgLTIuNiAyLjYgbCAtMi4xIC0yLjEgbCAyLjYgLTIuNiBjIC0zLjUgLTMgLTcuOSAtNSAtMTIuOCAtNS4zIHYgMy43IGggLTMgdiAtMy43IGMgLTQuOSAwLjMgLTkuMyAyLjMgLTEyLjggNS4zIGwgMi42IDIuNiBsIC0yLjEgMi4xIGwgLTIuNiAtMi42IGMgLTMgMy41IC01IDcuOSAtNS4zIDEyLjggaCAzLjcgdiAzIGggLTMuNyBjIDAuMyA0LjkgMi4zIDkuMyA1LjMgMTIuOCBsIDIuNiAtMi42IGwgMi4xIDIuMSBsIC0yLjYgMi42IGMgMy41IDMgNy45IDUgMTIuOCA1LjMgdiAtMy43IGggMyB2IDMuNyBjIDQuOSAtMC4zIDkuMyAtMi4zIDEyLjggLTUuMyBsIC0yLjYgLTIuNiBsIDIuMSAtMi4xIGwgMi42IDIuNiBjIDMgLTMuNSA1IC03LjkgNS4zIC0xMi44IGggLTMuNyB2IC0zIEggNzEuOCB6IE0gNjAuOSA1MS41IGggLTYuNCBjIC0wLjYgMS45IC0yLjQgMy4zIC00LjYgMy4zIGMgLTIuNyAwIC00LjggLTIuMiAtNC44IC00LjggYyAwIC0yLjEgMS40IC0zLjkgMy4zIC00LjYgdiAtOS44IGggMyB2IDkuOCBjIDEuNSAwLjUgMi42IDEuNiAzLjEgMy4xIGggNi40IFYgNTEuNSB6IE0gNTEuOCA1MCBjIDAgMSAtMC44IDEuOCAtMS44IDEuOCBTIDQ4LjIgNTEgNDguMiA1MCBzIDAuOCAtMS44IDEuOCAtMS44IFMgNTEuOCA0OSA1MS44IDUwIHoiIC8+DQo8L3N2Zz4=",
-  "size": 356057,
+  "repository": "https://github.com/RadNotRed/better-Ultimate-Clock",
+  "icon": "",
+  "size": 380040,
   "appManifest": {
-    "id": "ultimateclock",
+    "id": "betterultimateclock",
     "requires": [],
-    "label": "Ultimate Clock",
-    "version": "0.11.3",
-    "description": "The ultimate and best clock app you have ever seen",
-    "author": "Riprod",
+    "label": "Better Ultimate Clock",
+    "version": "0.1.0",
+    "description": "Slightly better ultimate clock by Riprod",
+    "author": "RadNotRed, Riprod",
     "platforms": [
       "windows",
       "linux",
@@ -23,7 +23,7 @@
       "x64"
     ],
     "homepage": "https://deskthing.app",
-    "repository": "https://github.com/itsriprod/deskthing-apps",
+    "repository": "https://github.com/RadNotRed/better-Ultimate-Clock",
     "template": "full",
     "tags": [],
     "requiredVersions": {
@@ -31,10 +31,10 @@
       "client": ">=0.11.2"
     }
   },
-  "updateUrl": "https://github.com/itsriprod/deskthing-apps/releases/latest/download/ultimateclock-v0.11.3.zip",
-  "hash": "b5bb43d499beb5fbfdb68e5fa9ded06e8fd3d9dd40480e7456b0fc38559b0e584d779570c2587aed55f91b70513e52e4ff1852da827f515448e179017f18d1d7",
+  "updateUrl": "https://github.com/RadNotRed/better-Ultimate-Clock/releases/latest/download/betterultimateclock-v0.1.0.zip",
+  "hash": "1aab831195a4ed15e9e58429cbe3d389d3675cff5cc75fd7b9fd13a743632885cb119743a3b2bca62d9761149865bfbe7eeeab17ce823eace017a13884d38f24",
   "hashAlgorithm": "sha512",
-  "updatedAt": 1766768612471,
-  "createdAt": 1766768612471,
+  "updatedAt": 1766777348038,
+  "createdAt": 1766777348038,
   "downloads": 0
 }

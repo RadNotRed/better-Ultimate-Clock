@@ -115,8 +115,8 @@ export type ClockSettings = {
   [ClockSettingIDs.TIME_ALIGNMENT]: SettingsSelect & { id: ClockSettingIDs.TIME_ALIGNMENT };
   [ClockSettingIDs.MILITARY_TIME]: SettingsBoolean & { id: ClockSettingIDs.MILITARY_TIME };
   [ClockSettingIDs.SHOW_AMPM]: SettingsSelect & { id: ClockSettingIDs.SHOW_AMPM };
-  [ClockSettingIDs.DIGIT_SPACING]: SettingsRange & { id: ClockSettingIDs.DIGIT_SPACING };
-  [ClockSettingIDs.LINE_SPACING]: SettingsRange & { id: ClockSettingIDs.LINE_SPACING };
+  [ClockSettingIDs.DIGIT_SPACING]: SettingsNumber & { id: ClockSettingIDs.DIGIT_SPACING };
+  [ClockSettingIDs.LINE_SPACING]: SettingsNumber & { id: ClockSettingIDs.LINE_SPACING };
   [ClockSettingIDs.CLOCK_DIVIDER]: SettingsString & { id: ClockSettingIDs.CLOCK_DIVIDER };
   [ClockSettingIDs.LEADING_ZERO_HOURS]: SettingsBoolean & { id: ClockSettingIDs.LEADING_ZERO_HOURS };
   
@@ -144,7 +144,7 @@ export type ClockSettings = {
   [ClockSettingIDs.DATE_POS_Y]: SettingsNumber & { id: ClockSettingIDs.DATE_POS_Y };
   [ClockSettingIDs.DATE_SIZE]: SettingsRange & { id: ClockSettingIDs.DATE_SIZE };
   [ClockSettingIDs.DAY_SIZE]: SettingsRange & { id: ClockSettingIDs.DAY_SIZE };
-  [ClockSettingIDs.DAY_DATE_GAP]: SettingsRange & { id: ClockSettingIDs.DAY_DATE_GAP };
+  [ClockSettingIDs.DAY_DATE_GAP]: SettingsNumber & { id: ClockSettingIDs.DAY_DATE_GAP };
   [ClockSettingIDs.DATE_OPACITY]: SettingsRange & { id: ClockSettingIDs.DATE_OPACITY };
   [ClockSettingIDs.DATE_ALIGNMENT]: SettingsSelect & { id: ClockSettingIDs.DATE_ALIGNMENT };
   

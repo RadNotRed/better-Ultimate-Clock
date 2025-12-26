@@ -3,34 +3,34 @@ import { useSettingStore } from "@src/store/settingsStore";
 import { ClockSettingIDs } from "@shared/index";
 import { useMusicStore } from "@src/store/musicStore";
 
-// Import SVG files as URLs
-import capricornSvg from "@src/data/SVG/capricorn.svg";
-import aquariusSvg from "@src/data/SVG/aquarius.svg";
-import piscesSvg from "@src/data/SVG/pisces.svg";
-import ariesSvg from "@src/data/SVG/aries.svg";
-import taurusSvg from "@src/data/SVG/taurus.svg";
-import geminiSvg from "@src/data/SVG/gemini.svg";
-import cancerSvg from "@src/data/SVG/cancer.svg";
-import leoSvg from "@src/data/SVG/leo.svg";
-import virgoSvg from "@src/data/SVG/virgo.svg";
-import libraSvg from "@src/data/SVG/libra.svg";
-import scorpioSvg from "@src/data/SVG/scorpio.svg";
-import sagittariusSvg from "@src/data/SVG/sagittarius.svg";
+// Import SVG files as raw strings so we can inline them and apply currentColor
+import capricornSvgRaw from "@src/data/SVG/capricorn.svg?raw";
+import aquariusSvgRaw from "@src/data/SVG/aquarius.svg?raw";
+import piscesSvgRaw from "@src/data/SVG/pisces.svg?raw";
+import ariesSvgRaw from "@src/data/SVG/aries.svg?raw";
+import taurusSvgRaw from "@src/data/SVG/taurus.svg?raw";
+import geminiSvgRaw from "@src/data/SVG/gemini.svg?raw";
+import cancerSvgRaw from "@src/data/SVG/cancer.svg?raw";
+import leoSvgRaw from "@src/data/SVG/leo.svg?raw";
+import virgoSvgRaw from "@src/data/SVG/virgo.svg?raw";
+import libraSvgRaw from "@src/data/SVG/libra.svg?raw";
+import scorpioSvgRaw from "@src/data/SVG/scorpio.svg?raw";
+import sagittariusSvgRaw from "@src/data/SVG/sagittarius.svg?raw";
 
-// Map constellation names to their SVG imports
-const CONSTELLATION_SVGS: Record<string, string> = {
-  Capricorn: capricornSvg,
-  Aquarius: aquariusSvg,
-  Pisces: piscesSvg,
-  Aries: ariesSvg,
-  Taurus: taurusSvg,
-  Gemini: geminiSvg,
-  Cancer: cancerSvg,
-  Leo: leoSvg,
-  Virgo: virgoSvg,
-  Libra: libraSvg,
-  Scorpio: scorpioSvg,
-  Sagittarius: sagittariusSvg,
+// Map constellation names to their raw SVG strings
+const CONSTELLATION_SVG_RAW: Record<string, string> = {
+  Capricorn: capricornSvgRaw,
+  Aquarius: aquariusSvgRaw,
+  Pisces: piscesSvgRaw,
+  Aries: ariesSvgRaw,
+  Taurus: taurusSvgRaw,
+  Gemini: geminiSvgRaw,
+  Cancer: cancerSvgRaw,
+  Leo: leoSvgRaw,
+  Virgo: virgoSvgRaw,
+  Libra: libraSvgRaw,
+  Scorpio: scorpioSvgRaw,
+  Sagittarius: sagittariusSvgRaw,
 };
 
 interface ConstellationProps {
@@ -94,15 +94,15 @@ export const Constellation: React.FC<ConstellationProps> = ({
   };
 
   const renderConstellationGraphic = () => {
-    const svgUrl = CONSTELLATION_SVGS[constellation.name];
-    
-    if (!svgUrl) {
+    const svgRaw = CONSTELLATION_SVG_RAW[constellation.name];
+
+    if (!svgRaw) {
       // Fallback to zodiac symbol if no SVG
       return (
         <div
           style={{
             fontSize: `${baseSize * 0.6}px`,
-            color: gradientEnabled ? "inherit" : color,
+            color,
           }}
         >
           {constellation.symbol}
@@ -110,20 +110,21 @@ export const Constellation: React.FC<ConstellationProps> = ({
       );
     }
 
-    // Use CSS filter to invert black to white, then colorize
-    // The SVGs are black on white, so we invert to get white
-    const imgStyle: React.CSSProperties = {
+    const wrapperStyle: React.CSSProperties = {
       ...svgStyle,
-      filter: "invert(1)", // Invert black to white
+      width: `${baseSize}px`,
+      height: `${baseSize}px`,
+      display: "inline-block",
+      color, // let SVG use currentColor
       opacity: constellationOpacity,
     };
 
     return (
-      <img
-        src={svgUrl}
-        alt={constellation.name}
-        style={imgStyle}
+      <div
         className={showAnimation ? "constellation-graphic" : ""}
+        style={wrapperStyle}
+        // Inline the SVG so it can inherit currentColor
+        dangerouslySetInnerHTML={{ __html: svgRaw }}
       />
     );
   };
