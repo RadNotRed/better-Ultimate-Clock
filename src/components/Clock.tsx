@@ -138,7 +138,7 @@ export const Clock = () => {
   const stackedContainerStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    alignItems: timeAlignment === "left" ? "flex-start" : timeAlignment === "right" ? "flex-end" : "center",
+    alignItems: "center",
     gap: `${lineSpacing}px`,
   };
 
@@ -165,26 +165,12 @@ export const Clock = () => {
 
   // Render inline time display
   const renderInlineTime = () => {
-
-    const numericSpanStyle: React.CSSProperties = {
-      fontVariantNumeric: 'tabular-nums',
-      fontFeatureSettings: "'tnum' 1",
-      display: 'inline-block',
-      minWidth: '2ch',
-    };
-
-    const dividerStyle: React.CSSProperties = {
-      margin: '0 0.25ch',
-    };
-
     return (
       <div key="clock" style={{ position: "relative", display: "inline-flex", alignItems: "baseline" }}>
         {/* Shadow element - only rendered for gradients */}
         {gradientEnabled && shadowEnabled && (
           <p className="min-h-fit min-w-fit text-nowrap font-clock" style={shadowStyle}>
-            <span style={{ ...numericSpanStyle, textAlign: 'right' }}>{timeData.hours}</span>
-            <span style={dividerStyle}>{clockDivider}</span>
-            <span style={{ ...numericSpanStyle, textAlign: 'left' }}>{timeData.minutes}</span>
+            {timeData.hours}{clockDivider}{timeData.minutes}
             {!militaryTime && showAmPm !== "off" && (
               <span style={{ ...amPmStyle, color: `rgba(0,0,0, ${shadowOpacity})` }}>
                 {timeData.amPm}
@@ -195,9 +181,7 @@ export const Clock = () => {
 
         {/* Main text element */}
         <p className="min-h-fit min-w-fit text-nowrap font-clock" style={textStyle}>
-          <span style={{ ...numericSpanStyle, textAlign: 'right' }}>{timeData.hours}</span>
-          <span style={dividerStyle}>{clockDivider}</span>
-          <span style={{ ...numericSpanStyle, textAlign: 'left' }}>{timeData.minutes}</span>
+          {timeData.hours}{clockDivider}{timeData.minutes}
         </p>
 
         {/* AM/PM indicator */}
