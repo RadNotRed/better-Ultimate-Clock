@@ -28,6 +28,8 @@ export const DateWidget: React.FC<DateWidgetProps> = ({
   const dateLayout = settings?.[ClockSettingIDs.DATE_LAYOUT] || "inline";
   const dateAlignment = settings?.[ClockSettingIDs.DATE_ALIGNMENT] || "center";
   const dateOpacity = settings?.[ClockSettingIDs.DATE_OPACITY] ?? 1;
+  const datePosX = settings?.[ClockSettingIDs.DATE_POS_X] ?? 0;
+  const datePosY = settings?.[ClockSettingIDs.DATE_POS_Y] ?? 0;
   
   // Independent sizing for day and date
   const dateSize = settings?.[ClockSettingIDs.DATE_SIZE] ?? 0.3;
@@ -97,6 +99,7 @@ export const DateWidget: React.FC<DateWidgetProps> = ({
     ...containerStyle,
     opacity: dateOpacity,
     textAlign: dateAlignment as React.CSSProperties["textAlign"],
+    transform: `translate(${datePosX}px, ${datePosY}px)`,
   };
 
   // Remove fontSize from passed styles since we control it per-element now
