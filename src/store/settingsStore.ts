@@ -41,6 +41,9 @@ type UIStore = {
   dateData: DateData;
   currentConstellation: ZodiacSign | null;
   fontUrl: string | null;
+  timeOffsetMs: number;
+  timeOffsetTargetMs: number;
+  timerId: number | null;
 
   setCurrentPage: (page: Page) => void;
 
@@ -203,6 +206,9 @@ export const useSettingStore = create<UIStore>((set, get) => ({
   dateData: defaultDateData,
   currentConstellation: null,
   fontUrl: null,
+  timeOffsetMs: 0,
+  timeOffsetTargetMs: 0,
+  timerId: null,
   settings: null,
   initialized: false,
 
@@ -248,6 +254,24 @@ export const useSettingStore = create<UIStore>((set, get) => ({
       const payload = event.payload as TimePayload;
       const date = new Date(payload.utcTime);
       date.setMinutes(date.getMinutes() - payload.timezoneOffset);
+
+      // compute server-to-local ms offset so we can tick locally
+      // The server payload may contain only minute precision (seconds=0). To avoid
+      // staying up to a minute behind or overshooting, choose the server minute
+      // nearest to local time and then preserve local seconds when building the offset.
+      const serverMs = date.getTime();
+      const localMs = Date.now();
+      const localMsIntoMinute = localMs % 60000;
+      // pick the integer number of minutes (k) so serverMs + k*60000 is closest to localMs
+      const minuteDiff = Math.round((localMs - serverMs) / 60000);
+      const adjustedServerMs = serverMs + minuteDiff * 60000 + localMsIntoMinute;
+      const offsetMs = adjustedServerMs - localMs;
+
+      if (!get().timerId) {
+        set({ timeOffsetMs: offsetMs, timeOffsetTargetMs: offsetMs });
+      } else {
+        set({ timeOffsetTargetMs: offsetMs });
+      }
 
       const hours = date.getUTCHours();
       const minutes = date.getUTCMinutes();
@@ -326,6 +350,51 @@ export const useSettingStore = create<UIStore>((set, get) => ({
       currentConstellation: getZodiacSign(now),
       initialized: true,
     });
+
+    if (!get().timerId) {
+      const id = window.setInterval(() => {
+        const currentOffset = get().timeOffsetMs ?? 0;
+        const targetOffset = get().timeOffsetTargetMs ?? currentOffset;
+        if (currentOffset !== targetOffset) {
+          const delta = targetOffset - currentOffset;
+          const maxStep = 500; // ms per tick (adjust smoothing speed here)
+          const step = Math.sign(delta) * Math.min(Math.abs(delta), maxStep);
+          const newOffset = currentOffset + step;
+          set({ timeOffsetMs: newOffset });
+        }
+
+        const offset = get().timeOffsetMs ?? 0;
+        const tickNow = new Date(Date.now() + offset);
+
+        const militaryTick = get().settings?.[ClockSettingIDs.MILITARY_TIME] ?? false;
+        const dividerTick = get().settings?.[ClockSettingIDs.CLOCK_DIVIDER] || ":";
+        const showAmPmTick = get().settings?.[ClockSettingIDs.SHOW_AMPM] || "normal";
+        const timeLayoutTick = get().settings?.[ClockSettingIDs.TIME_LAYOUT] || "inline";
+        const leadingZeroHoursTick = get().settings?.[ClockSettingIDs.LEADING_ZERO_HOURS] ?? false;
+        const dateFormatTick = get().settings?.[ClockSettingIDs.DATE_FORMAT] || "MMMM DD YYYY";
+        const monthFormatTick = get().settings?.[ClockSettingIDs.MONTH_FORMAT] || "full";
+        const dateSeparatorTick = get().settings?.[ClockSettingIDs.DATE_SEPARATOR] || "-";
+
+        const newTimeData = buildTimeData(tickNow, { military: militaryTick, divider: dividerTick, showAmPm: showAmPmTick, timeLayout: timeLayoutTick, leadingZeroHours: leadingZeroHoursTick });
+        const newTimeString = buildTimeString(tickNow, militaryTick, dividerTick);
+        const newDateStr = formatDate(tickNow, dateFormatTick, monthFormatTick, dateSeparatorTick);
+
+        if (get().timeData.formatted !== newTimeData.formatted || get().currentDate !== newDateStr) {
+          set({
+            timeData: newTimeData,
+            currentTime: newTimeString,
+            currentDate: newDateStr,
+            dateData: {
+              formatted: newDateStr,
+              dayName: getDayName(tickNow),
+            },
+            currentConstellation: getZodiacSign(tickNow),
+          });
+        }
+      }, 1000);
+
+      set({ timerId: id });
+    }
   },
 
   setSettings: (settings: ClockSettings | undefined) => {
